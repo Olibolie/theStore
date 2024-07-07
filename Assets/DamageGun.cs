@@ -22,7 +22,7 @@ public class DamageGun : MonoBehaviour
     // Update is called once per frame
     public void Shoot()
     {
-        Debug.Log("shoot function called");
+        //Debug.Log("shoot function called");
         RaycastHit hit;
         if (Physics.Raycast(PlayerCamera.position, PlayerCamera.forward, out hit, BulletRange))
         {
@@ -30,7 +30,7 @@ public class DamageGun : MonoBehaviour
             Debug.Log(hit.collider.name);
             if (hit.collider.gameObject.TryGetComponent(out EnemyAi enemyAi))
             {
-                Debug.Log("enemy take damage");
+                //Debug.Log("enemy take damage");
                 enemyAi.TakeDamage(Damage);
 
             }

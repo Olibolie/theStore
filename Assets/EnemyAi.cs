@@ -59,7 +59,7 @@ public class EnemyAi : MonoBehaviour
 
     private void Patroling()
     {
-        //Debug.Log("Patroling");
+        Debug.Log("Patroling");
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -87,20 +87,20 @@ public class EnemyAi : MonoBehaviour
 
     private void ChasePlayer()
     {
-        //Debug.Log("Chasing");
+        Debug.Log("Chasing");
         agent.SetDestination(player.position);
         transform.LookAt(player);
     }
 
     private void SearchPlayer()
     {
-        //Debug.Log("Searching");
+        Debug.Log("Searching");
         agent.SetDestination(player.position);
         
     }
     private void AttackPlayer()
     {
-       // Debug.Log("Attacking");
+        Debug.Log("Attacking");
 
         //check if enemy doesn't move
         agent.SetDestination(transform.position);
@@ -139,16 +139,16 @@ public class EnemyAi : MonoBehaviour
     private void Update()
     {
         //sprite
-        Debug.Log(angleToPlayer.lastIndex);
+        //Debug.Log(angleToPlayer.lastIndex);
         spriteAnim.SetFloat("spriteRot", angleToPlayer.lastIndex);
 
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        // Parameters for the cone raycast
-        float coneAngle = 45f; // Angle of the cone in degrees
-        int numRays = 10; // Number of rays within the cone
-        float rayDistance = 100f; // Maximum distance of the rays
+            // Parameters for the cone raycast
+            float coneAngle = 45f; // Angle of the cone in degrees
+            int numRays = 9; // Number of rays within the cone
+            float rayDistance = 100f; // Maximum distance of the rays
 
         // Reset playerInLineOfSight
         playerInLineOfSight = false;
