@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Health")]
+    public float healthPoints;
+    public bool alive;
+
     [Header("Movement")]
     public float moveSpeed;
 
@@ -38,7 +42,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
-    }
+        alive = true;
+}
 
     // Update is called every tick
     void Update()
@@ -53,8 +58,17 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        if (healthPoints <= 0)
+        {
+            Debug.Log("You died!");
+        }
     }
 
+    void Death()
+    {
+        return;
+    }
     void FixedUpdate()
     {
         MovePlayer();

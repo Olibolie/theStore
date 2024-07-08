@@ -146,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 2085455895429003181}
   player: {fileID: 0}
+  playerMovement: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
@@ -156,7 +157,10 @@ MonoBehaviour:
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
   timeBetweenAttacks: 0.5
-  projectile: {fileID: 5582840667756219917, guid: 119857eaeaa7fd04cb092ff1859286da, type: 3}
+  bulletSpeed: 150
+  bulletDelay: 1
+  bulletDamage: 1
+  shootPoint: {fileID: 5240974140717688128}
   sightRange: 20
   attackRange: 12
   playerInSightRange: 0

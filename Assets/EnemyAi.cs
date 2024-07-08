@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.UI.Image;
 
 public class EnemyAi : MonoBehaviour
 {
     public NavMeshAgent agent;
 
     public Transform player;
+    public PlayerMovement playerMovement;
+    private float healthPoints;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -16,21 +19,30 @@ public class EnemyAi : MonoBehaviour
     public float health;
 
     //sprite
+    [Header("Sprite")]
     private Animator spriteAnim;
     private AngleToPlayer angleToPlayer;
 
 
     //patroling
+    [Header("Patrol")]
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
 
     //attacking
+    [Header("Attacking")]
     public float timeBetweenAttacks;
+    public float bulletSpeed;
+    //public float bulletTime;
+    public float bulletDelay;
+    public float bulletDamage;
     bool alreadyAttacked;
-    public GameObject projectile;
+    //public GameObject projectile;
+    public Transform shootPoint;
 
     //states
+    [Header("States")]
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange, playerInLineOfSight;
     
@@ -55,6 +67,12 @@ public class EnemyAi : MonoBehaviour
         {
             player = GameObject.Find("Player").transform;
         }
+        if (playerMovement == null)
+        {
+            playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        }
+       
+
     }
 
     private void Patroling()
@@ -108,15 +126,45 @@ public class EnemyAi : MonoBehaviour
         transform.LookAt(player);
         if (!alreadyAttacked)
         {
+
+            //Raycast bullets
+            StartCoroutine(RayBullet());
+
+            //Shoot projectile clones, and delete them
             //attack
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            //Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            //rb.AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
+
+            //destroy clone in 2sec
+            //Destroy(rb.gameObject, bulletTime);
 
             //check attack
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
+    }
+
+    IEnumerator RayBullet()
+    {
+        Vector3 startPosition = shootPoint.position;
+        Vector3 shootDirection = shootPoint.forward;
+
+        yield return new WaitForSeconds(bulletDelay);
+
+        RaycastHit hit;
+        if (Physics.Raycast(startPosition,shootDirection,out hit, attackRange*2))
+        {
+            if(hit.collider.gameObject == player.gameObject)
+            {
+                Debug.DrawRay(transform.position, transform.forward, Color.cyan);
+                playerMovement.healthPoints -= bulletDamage;
+                Debug.Log(playerMovement.healthPoints);
+            } else
+            {
+                Debug.Log(hit.collider.gameObject);
+            }
+        }
+            
     }
 
     private void ResetAttack()
