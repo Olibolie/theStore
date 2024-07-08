@@ -18,7 +18,7 @@ public class AngleToPlayer : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<PlayerCamera>().transform;
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren <SpriteRenderer>();
     }
 
     // Update is called once per frame

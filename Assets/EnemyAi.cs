@@ -156,12 +156,12 @@ public class EnemyAi : MonoBehaviour
         {
             if(hit.collider.gameObject == player.gameObject)
             {
-                Debug.DrawRay(transform.position, transform.forward, Color.cyan);
+                //Debug.DrawRay(transform.position, transform.forward, Color.cyan);
                 playerMovement.healthPoints -= bulletDamage;
-                Debug.Log(playerMovement.healthPoints);
+                //Debug.Log(playerMovement.healthPoints);
             } else
             {
-                Debug.Log(hit.collider.gameObject);
+                //Debug.Log(hit.collider.gameObject);
             }
         }
             
@@ -230,10 +230,10 @@ public class EnemyAi : MonoBehaviour
             }
         }
 
-        if (!playerInAttackRange && !playerInLineOfSight) Patroling();
-        if (playerInSightRange && !playerInAttackRange && playerInLineOfSight) ChasePlayer();
-        if (playerInSightRange && playerInAttackRange) SearchPlayer();
-        if (playerInAttackRange && playerInSightRange && playerInLineOfSight) AttackPlayer();
+        if (!playerInSightRange && !playerInAttackRange && !playerInSightRange) Patroling(); //search if doesnt know where player is
+        if (playerInSightRange && !playerInAttackRange && !playerInLineOfSight) SearchPlayer(); //search if player is in range but not in LOS
+        if (playerInSightRange && !playerInAttackRange && playerInLineOfSight) ChasePlayer(); //chase player if LOS but no range
+        if (playerInSightRange && playerInAttackRange && playerInLineOfSight) AttackPlayer(); // attack if LOS and range
     }
 
     private void OnDrawGizmosSelected()
