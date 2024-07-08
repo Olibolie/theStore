@@ -55,6 +55,7 @@ public class PowerPickUp : MonoBehaviour
 
             gameObject.GetComponent<MeshRenderer>().enabled=false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
+            gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
         }
     }
 

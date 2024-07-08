@@ -155,7 +155,7 @@ MonoBehaviour:
     m_Bits: 512
   health: 120
   walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 5
+  walkPointRange: 10
   timeBetweenAttacks: 0.5
   bulletSpeed: 150
   bulletDelay: 1

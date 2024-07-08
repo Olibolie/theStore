@@ -96,9 +96,11 @@ public class EnemyAi : MonoBehaviour
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+        NavMeshHit hit;
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
+        if (NavMesh.SamplePosition(walkPoint, out hit, walkPointRange, 1))
         {
+            walkPoint = hit.position;
             walkPointSet = true;
         }
     }
