@@ -33,12 +33,15 @@ public class AngleToPlayer : MonoBehaviour
 
         //Flip Sprite if needed
         Vector3 tempScale = Vector3.one;
-        if (angle > 0) { tempScale.x *= -1f; }
+        if (angle > 22.6f) {
+           
+            tempScale.x *= -1f; 
+        }
+
         spriteRenderer.transform.localScale = tempScale;
 
         lastIndex = GetIndex(angle);
     }
-
 
     private int GetIndex(float angle)
     {
@@ -62,6 +65,7 @@ public class AngleToPlayer : MonoBehaviour
             return 2;
         if (angle >= -67.5f && angle <= -22.5f)
             return 1;
+
 
         return lastIndex;
     }
